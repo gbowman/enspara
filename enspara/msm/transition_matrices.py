@@ -163,7 +163,7 @@ def assigns_to_counts(
             assign, lag_time=lag_time, sliding_window=sliding_window)
         for assign in assigns]
     # generate sparse matrix
-    mat_coords = np.hstack(transitions)
+    mat_coords = np.concatenate(transitions, axis=1)
     mat_data = np.ones(mat_coords.shape[1], dtype=int)
     C = scipy.sparse.coo_matrix(
         (mat_data, mat_coords), shape=(max_n_states, max_n_states))
