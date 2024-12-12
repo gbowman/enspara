@@ -104,7 +104,7 @@ def test_check_feature_size():
     with pytest.raises(exception.DataInvalid):
         mutual_info.check_features_states(states_different_features, [3])
 
-
+@fix_np_rng(0)
 def test_symmetrical_mi_zero():
 
     zero_mi_funcs = [zero_mi_np, zero_mi_ra, zero_mi_list]
