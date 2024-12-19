@@ -114,10 +114,12 @@ def load_as_concatenated(filenames, lengths=None, processes=None,
         logger.debug("Sounding %s trajectories with %s processes.",
                      len(filenames), processes)
         with mp.Pool(processes=processes) as pool:
-            lengths = pool.starmap(
+            proc = pool.starmap_async(
                 sound_trajectory,
                 [(f, kw.get('stride', 1)) for f, kw
                  in zip(filenames, args) if 'frame' not in kw])
+
+        shapes = proc.get()
 
         # trjs with frame are always length 1, add that to lengths now
         for i, kw in enumerate(args):
